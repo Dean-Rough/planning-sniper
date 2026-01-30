@@ -11,7 +11,8 @@ import {
   MapPin, 
   Building2, 
   Bookmark,
-  CheckCircle
+  CheckCircle,
+  Copy
 } from "lucide-react"
 
 const fontStyle = `
@@ -67,6 +68,14 @@ export default function Home() {
       portalUrl: "https://citydev-portal.edinburgh.gov.uk/idoxpa-web/applicationDetails.do?activeTab=summary&keyVal=2506037FUL",
     }
   ]
+
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   const handleCreateDraft = async (lead: any) => {
     try {
@@ -191,12 +200,21 @@ export default function Home() {
                     <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">Email draft</p>
                     <p className="text-lg leading-relaxed text-[#F4F1E9] font-bold">{lead.draft}</p>
                   </div>
-                  <Button 
-                    onClick={() => handleCreateDraft(lead)}
-                    className="bg-[#F4F1E9] text-[#2B2B2B] hover:bg-white font-bold h-11 px-8 rounded-none text-[13px] transition-all"
-                  >
-                    Confirm and draft
-                  </Button>
+                  <div className="flex gap-3 justify-end">
+                    <Button 
+                      onClick={() => handleCopy(lead.draft)}
+                      variant="outline"
+                      className="border-zinc-700 text-[#F4F1E9] hover:bg-zinc-800 rounded-none font-bold text-xs uppercase tracking-widest px-6 h-11"
+                    >
+                      <Copy className="w-4 h-4 mr-2" /> {copied ? 'Copied' : 'Copy'}
+                    </Button>
+                    <Button 
+                      onClick={() => handleCreateDraft(lead)}
+                      className="bg-[#F4F1E9] text-[#2B2B2B] hover:bg-white font-bold h-11 px-8 rounded-none text-[13px] transition-all"
+                    >
+                      Confirm and draft
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
