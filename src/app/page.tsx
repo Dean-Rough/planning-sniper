@@ -11,11 +11,13 @@ import {
   MapPin, 
   Building2, 
   Search,
-  CheckCircle2
+  CheckCircle2,
+  Bookmark
 } from "lucide-react"
 
 export default function Home() {
   const [sentLeads, setSentLeads] = useState<string[]>([])
+  const [savedLeads, setSavedLeads] = useState<string[]>([])
   const [previewLead, setPreviewLead] = useState<any>(null)
 
   const leads = [
@@ -34,6 +36,10 @@ export default function Home() {
   const handleSend = (id: string) => {
     setSentLeads([...sentLeads, id])
     setPreviewLead(null)
+  }
+
+  const handleSave = (id: string) => {
+    setSavedLeads([...savedLeads, id])
   }
 
   return (
@@ -77,11 +83,21 @@ export default function Home() {
                     </div>
                     <CardTitle className="text-xl font-bold uppercase italic leading-none">{lead.title}</CardTitle>
                   </div>
-                  <a href={lead.portalUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="sm" className="rounded-none border-zinc-800 bg-transparent hover:bg-white hover:text-black transition-colors">
-                      <ExternalLink className="w-4 h-4 mr-2" /> PORTAL
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      onClick={() => handleSave(lead.id)}
+                      className={`h-9 w-9 border-zinc-800 bg-transparent hover:bg-white hover:text-black transition-colors ${savedLeads.includes(lead.id) ? 'bg-white text-black' : ''}`}
+                    >
+                      <Bookmark className={`h-4 w-4 ${savedLeads.includes(lead.id) ? 'fill-current' : ''}`} />
                     </Button>
-                  </a>
+                    <a href={lead.portalUrl} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm" className="rounded-none border-zinc-800 bg-transparent hover:bg-white hover:text-black transition-colors h-9">
+                        <ExternalLink className="w-4 h-4 mr-2" /> PORTAL
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </CardHeader>
               
