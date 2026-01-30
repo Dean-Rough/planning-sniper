@@ -68,9 +68,26 @@ export default function Home() {
     }
   ]
 
-  const handleCreateDraft = async (id: string) => {
-    setDraftedLeads([...draftedLeads, id])
-    setPreviewLead(null)
+  const handleCreateDraft = async (lead: any) => {
+    try {
+      const response = await fetch('/api/draft', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'ahmed@example.com', // In real use, this comes from the scraper intel
+          subject: `Planning Application: ${lead.id} - ${lead.address}`,
+          body: lead.draft
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to create draft');
+
+      setDraftedLeads([...draftedLeads, lead.id])
+      setPreviewLead(null)
+    } catch (error) {
+      console.error('Draft error:', error);
+      alert('Failed to create draft in Gmail. Check console.');
+    }
   }
 
   return (
@@ -141,7 +158,7 @@ export default function Home() {
                 </Button>
                 
                 <Button 
-                  onClick={() => handleCreateDraft(lead.id)}
+                  onClick={() => handleCreateDraft(lead)}
                   disabled={draftedLeads.includes(lead.id)}
                   className="bg-transparent border border-zinc-700 text-[#F4F1E9] hover:bg-zinc-800 font-bold h-11 px-8 rounded-none text-[13px] transition-all disabled:opacity-20"
                 >
@@ -175,7 +192,7 @@ export default function Home() {
                     <p className="text-lg leading-relaxed text-[#F4F1E9] font-bold">{lead.draft}</p>
                   </div>
                   <Button 
-                    onClick={() => handleCreateDraft(lead.id)}
+                    onClick={() => handleCreateDraft(lead)}
                     className="bg-[#F4F1E9] text-[#2B2B2B] hover:bg-white font-bold h-11 px-8 rounded-none text-[13px] transition-all"
                   >
                     Confirm and draft
