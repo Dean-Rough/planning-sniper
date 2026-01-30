@@ -100,7 +100,7 @@ export default function Home() {
         {/* LEAD LIST */}
         <div className="space-y-16">
           {leads.map((lead) => (
-            <div key={lead.id} className="space-y-10 group border border-zinc-800/50 p-10 -m-10">
+            <div key={lead.id} className="space-y-10 group border border-[#F4F1E9] p-10 -m-10">
               
               {/* LEAD INFO */}
               <div className="space-y-4">
