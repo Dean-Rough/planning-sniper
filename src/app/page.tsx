@@ -60,6 +60,7 @@ export default function Home() {
   const leads = [
     {
       id: "25/06037/FUL",
+      council: "Edinburgh",
       address: "544 Gorgie Road, Edinburgh",
       title: "Change of use to restaurant (Class 3)",
       applicant: "Mr Ahmed Ali",
@@ -132,6 +133,9 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] text-zinc-600 font-bold tracking-wider">{lead.id}</span>
+                  <span className="text-[10px] text-[#84894A] font-bold uppercase tracking-widest bg-[#84894A]/5 px-2 py-0.5 border border-[#84894A]/10">
+                    {lead.council}
+                  </span>
                   {draftedLeads.includes(lead.id) && (
                     <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-400/5 px-2 py-0.5 border border-emerald-400/10">
                       <CheckCircle className="w-3 h-3" /> In drafts
