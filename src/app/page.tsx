@@ -100,7 +100,7 @@ export default function Home() {
         {/* LEAD LIST */}
         <div className="space-y-16">
           {leads.map((lead) => (
-            <div key={lead.id} className="space-y-10 group">
+            <div key={lead.id} className="space-y-10 group border border-zinc-800/50 p-10 -m-10">
               
               {/* LEAD INFO */}
               <div className="space-y-4">
@@ -127,12 +127,12 @@ export default function Home() {
                 </div>
                 <div className="col-span-2 space-y-2 pt-2">
                   <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">Sniper intelligence</p>
-                  <p className="text-[15px] leading-relaxed text-zinc-300 font-medium italic">{lead.intel}</p>
+                  <p className="text-[15px] font-bold text-[#F4F1E9]">{lead.intel}</p>
                 </div>
               </div>
 
               {/* ACTION BAR */}
-              <div className="flex items-center gap-3 pt-4 border-t border-zinc-800/50">
+              <div className="flex items-center gap-3 pt-6 border-t border-zinc-800/50">
                 <Button 
                   onClick={() => setPreviewLead(previewLead === lead.id ? null : lead.id)}
                   className="bg-[#F4F1E9] text-[#2B2B2B] hover:bg-white font-bold h-11 px-8 rounded-none text-[13px] transition-all"
